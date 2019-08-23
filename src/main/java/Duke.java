@@ -13,15 +13,30 @@ public class Duke {
         //do the thing
         Scanner myObj = new Scanner(System.in); //create a scanner object
 
+        //add to array
+        String[] myList = new String[100]; //declare an array of strings
+        //arr = new myList[100]; //allocate mmr for 100 objs of type myList
+
+
         String Bye = "bye";
-        while(1 == 1){
+        int i = 0;
+
+        while (1 == 1) {
             String userInput;
             userInput = myObj.nextLine(); //Read user input
             if (userInput.equals(Bye)) {
                 System.out.println("Bye l0s3r c u again soon.");
                 break;
+            } else if (userInput.equals("list")) {
+                for (int j = 0; j < i; j++) {
+                    System.out.println((j + 1) + ". " + myList[j]);
+                }
             } else {
-                System.out.println(userInput);
+                //add into array
+                myList[i] = userInput;
+                System.out.println("added:" + userInput);
+                i++;
             }
+        }
     }
-}}
+}
