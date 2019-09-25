@@ -1,4 +1,8 @@
 import java.util.Scanner; //Importthe scanner class
+
+import task.Event;
+import task.Todo;
+import task.Deadline;
 import task.Task;
 
 
@@ -26,29 +30,58 @@ public class Duke {
         while (1 == 1) {
             String userInput;
             userInput = myObj.nextLine(); //Read user input
-            String[] Action = userInput.split(" "); // Action[1] is done, Action[2] is number
-
-
+            String[] Action = userInput.split(" ", 2); // Action[0] is done, Action[1] is whatever remains
 
             if (userInput.equals("bye")) {
                 System.out.println("Bye l0s3r c u again soon.");
                 break;
             } else if (userInput.equals("list")) {
-                System.out.println("Things in your list:");
+                System.out.println("Here are the tasks in your list:");
                 for (int j = 0; j < i; j++) {
-                    System.out.println((j + 1) + ". " + "[" + myTasks[j].getStatusIcon() + "]" + myTasks[j].getDescription());
+                    System.out.println((j + 1) + ". " + myTasks[j].toString());
+                    //System.out.println((j + 1) + ". " + "[" + myTasks[j].getStatusIcon() + "]" + myTasks[j].getDescription());
                 }
             } else if (Action[0].equals("done")){
                 int Number = Integer.parseInt(Action[1]); //change string to INT
 
                 myTasks[Number - 1].markAsDone();
                 System.out.println("Nice! I've marked this task as done:");
-                System.out.println("[" + myTasks[Number -1].getStatusIcon() + "] " + myTasks[Number -1].getDescription());
+                System.out.println("  " + myTasks[Number - 1].toString());
+                //System.out.println("[" + myTasks[Number -1].getStatusIcon() + "] " + myTasks[Number -1].getDescription());
             } else {
-                //add into array
 
-                myTasks[i] = new Task(userInput);
-                System.out.println("added:" + userInput);
+                /**
+                 * ADDS TASKS TO THE LIST "myTasks"
+                 * Split by first space to get: word + whatever's left of string
+                 * THEN split by "/by" or "/at"
+                 **/
+                if (Action[0].equals("deadline")){
+                    //split by "/by"
+                    String[] Action1 = Action[1].split("/by");
+
+                    myTasks[i] = new Deadline(Action1[0], Action1 [1]);
+                    System.out.println( "Got it. I've added this task:");
+                    System.out.println("  " + myTasks[i].toString());
+                    System.out.println("You have " + (i + 1) + " task(s) in your list.");
+
+                } else if (Action[0].equals("todo")){
+
+                    myTasks[i] = new Todo(Action[1]);
+                    System.out.println( "Got it. I've added this task:");
+                    System.out.println("  " + myTasks[i].toString());
+                    System.out.println("You have " + (i + 1) + " task(s) in your list.");
+
+                } else if (Action[0].equals("event")){
+                    //split by "/at"
+                    String[] Action1 = Action[1].split("/at");
+
+                    myTasks[i] = new Event(Action1[0], Action1 [1]);
+                    System.out.println( "Got it. I've added this task:");
+                    System.out.println("  " + myTasks[i].toString());
+                    System.out.println("You have " + (i + 1) + " task(s) in your list.");
+
+                }
+
 
                 i++;
             }

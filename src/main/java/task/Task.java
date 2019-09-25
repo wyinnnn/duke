@@ -31,8 +31,14 @@ public class Task {
         this.isDone = true; //tick
     }
 
+    @Override
+    public String toString(){
+        return "[" + this.getStatusIcon() + "] " + this.description;
+    }
+
 
 }
+
 
 
 //Task t = new Task("read book"); // instantiate new task as 't', of type Task.
